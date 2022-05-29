@@ -21,7 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -36,91 +36,139 @@
 
         <TableRow>
             <Button
-                style="@style/CalculatorButton"
-                android:text="C" />
+                style="@style/CalculatorButtonLandscape"
+                android:text="1/X"
+                android:onClick="action"/>
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
+                android:text="X^2"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
+                android:text="C"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
                 android:text="±" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="€" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="/" />
         </TableRow>
 
         <TableRow>
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
+                android:text="√"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
+                android:text="X!"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
                 android:text="7" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="8" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="9" />
 
             <Button
-                style="@style/CalculatorButton"
-                android:text="*"/>
+                style="@style/CalculatorButtonLandscape"
+                android:text="*" />
         </TableRow>
 
         <TableRow>
+            <Button
+                style="@style/CalculatorButtonLandscape"
+                android:text="SIN"
+                android:onClick="action"/>
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
+                android:text="COS"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
                 android:text="4" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="5" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="6" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="+" />
         </TableRow>
 
         <TableRow>
+            <Button
+                style="@style/CalculatorButtonLandscape"
+                android:text="TAN"
+                android:onClick="action"/>
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
+                android:text="π"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
                 android:text="1" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="2" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="3" />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="-" />
         </TableRow>
 
         <TableRow>
+            <Button
+                style="@style/CalculatorButtonLandscape"
+                android:text="LOG"
+                android:onClick="action"/>
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
+                android:text="e^x"
+                android:onClick="action"/>
+
+            <Button
+                style="@style/CalculatorButtonLandscape"
                 android:layout_span="2"
                 android:text="0"/>
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="." />
 
             <Button
-                style="@style/CalculatorButton"
+                style="@style/CalculatorButtonLandscape"
                 android:text="=" />
         </TableRow>
     </TableLayout>
@@ -128,10 +176,11 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:background="#FFFFFF"
+        android:layout_height="5sp"
+        android:background="#818181"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        tools:layout_editor_absoluteX="1dp"
         tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
         android:layout_weight="1"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
