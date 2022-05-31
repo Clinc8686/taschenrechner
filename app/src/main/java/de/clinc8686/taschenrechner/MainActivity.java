@@ -60,7 +60,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 });
                 break;
             case "±":
-                result.setText("-" + result.getText().toString());
+                if (!(subResult.length() > 0))
+                    result.append("(-");
+                else
+                    result.append("*(-1)");
                 break;
             case "1/X":
                 if (subResult.length() > 0)
