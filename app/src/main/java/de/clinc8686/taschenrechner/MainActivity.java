@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     @Override
                     public boolean onLongClick(View view) {
                         result.setText("");
-                        return false;
+                        return true;    //return wert gibt an ob noch wietere operationen durchgefhrt werden sollen, wie z.B. Dropdown Menü öffnen usw... (true: nix mehr, false: weitere operation)
                     }
                 });
                 break;
