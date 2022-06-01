@@ -1,6 +1,8 @@
 package de.clinc8686.taschenrechner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -11,8 +13,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +32,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
+    private int textSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,67 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuinflater = getMenuInflater();
+        menuinflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String result = ((TextView) findViewById(R.id.result)).getText().toString();
+        outState.putString("result", result);
+        outState.putInt("textSize", textSize);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String result = savedInstanceState.getString("result");
+        ((TextView) findViewById(R.id.result)).setText(result);
+        textSize = savedInstanceState.getInt("textSize");
+        changeTextSize();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.small:
+                textSize = 12;
+                changeTextSize();
+                break;
+            case R.id.middle:
+                textSize = 20;
+                changeTextSize();
+                break;
+            case R.id.large:
+                textSize = 28;
+                changeTextSize();
+                break;
+
+        }
+        return true;
+    }
+
+    private void changeTextSize(){
+        TextView result = findViewById(R.id.result);
+        result.setTextSize(textSize);
+
+        TableLayout tl = findViewById(R.id.tableLayout);
+        int childs = tl.getChildCount();
+
+        for(int i = 0; i < childs; i++) {
+            TableRow tr = (TableRow) tl.getChildAt(i);
+            int tablerows = tr.getChildCount();
+            for (int j = 0; j < tablerows; j++) {
+                Button bt = (Button) tr.getChildAt(j);
+                bt.setTextSize(textSize);
+            }
+        }
     }
 
     public void action(View view) {
@@ -66,9 +135,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     result.append("*(-1)");
                 break;
             case "1/X":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("1/");
+                appendTextToResult("1/");
                 break;
             case "X^2":
                 if (subResult.length() > 0)
@@ -77,41 +144,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                    Snackbar.make(result,"Ungültige Eingabe", Snackbar.LENGTH_SHORT).show();
                 break;
             case "√":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("sqrt(");
+                appendTextToResult("sqrt(");
                 break;
             case "X!":
                 break;
             case "SIN":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("sin(");
+                appendTextToResult("sin(");
                 break;
             case "COS":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("cos(");
+                appendTextToResult("cos(");
                 break;
             case "TAN":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("tan(");
+                appendTextToResult("tan(");
                 break;
             case "π":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("π");
+                appendTextToResult("π");
                 break;
             case "LOG":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("log(");
+                appendTextToResult("log(");
                 break;
             case "E^X":
-                if (subResult.length() > 0)
-                    result.append("*");
-                result.append("e^(");
+                appendTextToResult("e^");
                 break;
             default:
                 if (greaterZero) {
@@ -125,6 +178,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 result.append(input);
                 break;
         }
+    }
+
+    private void appendTextToResult(String character) {
+        TextView result = findViewById(R.id.result);
+        String subResult = result.getText().toString();
+
+        if (subResult.length() > 0)
+            result.append("*");
+        result.append(character);
     }
 
     private void calculate() {
@@ -169,8 +231,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             double diff = acceleration - oldAcceleration;
 
             if (diff > 10 || diff < -10) {
-                Log.e("sensor",diff+"");
-                Log.e("sensor", "calculate");
                 calculate();
             }
         }
