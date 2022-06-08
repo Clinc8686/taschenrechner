@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return true;
     }
 
+    //Aufruf nach onStop()
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         outState.putInt("textSize", textSize);
     }
 
+        //Aufruf vor onStart()
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //float fontsize = getResources().getDimension(R.dimen.)
+        
         switch (item.getItemId()) {
             case R.id.small:
                 textSize = 12;
